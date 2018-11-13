@@ -5,3 +5,4 @@ lib/client
 node_modules
 spec/*_bundle.js
 spec/*.map
+.idea
