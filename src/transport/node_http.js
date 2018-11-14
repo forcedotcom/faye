@@ -2,6 +2,7 @@
 
 var http   = require('http'),
     https  = require('https'),
+    os = require('os'),
     tunnel = require('tunnel-agent');
 
 var Class     = require('../util/class'),
@@ -56,6 +57,15 @@ var NodeHttp = assign(Class(Transport, { className: 'NodeHttp',
         params  = this._buildParams(content),
         request = this._httpClient.request(params),
         self    = this;
+
+
+    if (this._dispatcher.enableRequestResponseLogging) {
+      let reqLogLine = `${os.EOL}----------------------- Begin Faye Request -----------------`;
+      reqLogLine += `${os.EOL}params: ${JSON.stringify(params, null, 4)}`;
+      reqLogLine += `${os.EOL}params: ${JSON.stringify(messages, null, 4)}`;
+      reqLogLine += `${os.EOL}----------------------- End Faye Request ----------------`;
+      this.debug(reqLogLine);
+    }
 
     request.on('response', function(response) {
       self._handleResponse(messages, response);
@@ -118,6 +128,16 @@ var NodeHttp = assign(Class(Transport, { className: 'NodeHttp',
     response.on('data', function(chunk) { body += chunk });
 
     response.on('end', function() {
+
+      if (self._dispatcher.enableRequestResponseLogging) {
+        var respLogLine = `${os.EOL}----------------------- Begin Faye Response -----------------`;
+        respLogLine += `${os.EOL}response headers: ${JSON.stringify(response.headers, null, 4)}`;
+        respLogLine += `${os.EOL}response: ${body}`;
+        respLogLine += `${os.EOL}messages: ${JSON.stringify(messages, null, 4)}`;
+        respLogLine += `${os.EOL}----------------------- End Faye Response ----------------`;
+        self.debug(respLogLine);
+      }
+
       var replies;
       try { replies = JSON.parse(body) } catch (error) {}
 

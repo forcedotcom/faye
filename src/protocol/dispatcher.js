@@ -30,6 +30,11 @@ var Dispatcher = Class({ className: 'Dispatcher',
     this._state       = 0;
     this.transports   = {};
     this.wsExtensions = [];
+    this.cookiesAllowAllPaths = options.cookiesAllowAllPaths || false;
+    this.enableRequestResponseLogging = options.enableRequestResponseLogging || false;
+
+    this.debug('options.cookiesAllowAllPaths: ' + options.cookiesAllowAllPaths);
+    this.debug('options.enableRequestResponseLogging: ' + options.enableRequestResponseLogging);
 
     this.proxy = options.proxy || {};
     if (typeof this._proxy === 'string') this._proxy = {origin: this._proxy};

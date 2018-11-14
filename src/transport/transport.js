@@ -117,8 +117,17 @@ var Transport = assign(Class({ className: 'Transport',
         url     = this.endpoint.href;
 
     if (!cookies) return '';
+    this.debug('this._dispatcher.cookiesAllowAllPaths: ?', this._dispatcher.cookiesAllowAllPaths);
 
-    return array.map(cookies.getCookiesSync(url), function(cookie) {
+    const batch = this._dispatcher.cookiesAllowAllPaths ?
+      cookies.getCookiesSync(url, { allPaths: true }) :
+      cookies.getCookiesSync(url);
+
+    if (this._dispatcher.enableRequestResponseLogging) {
+      this.debug('cookie batch: ?', batch);
+    }
+
+    return array.map(batch, function(cookie) {
       return cookie.cookieString();
     }).join('; ');
   },

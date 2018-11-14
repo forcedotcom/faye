@@ -1,5 +1,5 @@
 {
-  "name": "faye",
+  "name": "sfdx-faye",
   "description": "Simple pub/sub messaging for the web",
   "homepage": "https://faye.jcoglan.com",
   "author": "James Coglan <jcoglan@gmail.com> (http://jcoglan.com/)",
@@ -12,7 +12,7 @@
     "http"
   ],
   "license": "MIT",
-  "version": "1.2.21",
+  "version": "1.0.7",
   "engines": {
     "node": ">=10.13.0"
   },
@@ -38,7 +38,8 @@
   },
   "scripts": {
     "test": "find spec -name '*_spec.js' | xargs jstest",
-    "promise": "promises-aplus-tests src/util/promise.js"
+    "promise": "promises-aplus-tests src/util/promise.js",
+    "prepublish": "make; npm test"
   },
   "repository": {
     "type": "git",

@@ -37,7 +37,8 @@ var Client = Class({ className: 'Client',
     this.info('New client created for ?', endpoint);
     options = options || {};
 
-    validateOptions(options, ['interval', 'timeout', 'endpoints', 'proxy', 'retry', 'scheduler', 'websocketExtensions', 'tls', 'ca']);
+    validateOptions(options, ['interval', 'timeout', 'endpoints', 'proxy', 'retry', 'scheduler', 'websocketExtensions',
+      'tls', 'ca', 'cookiesAllowAllPaths', 'enableRequestResponseLogging']);
 
     this._channels   = new Channel.Set();
     this._dispatcher = Dispatcher.create(this, endpoint || this.DEFAULT_ENDPOINT, options);
