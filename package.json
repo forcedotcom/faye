@@ -14,7 +14,7 @@
   "license": "MIT",
   "version": "1.0.7",
   "engines": {
-    "node": ">=10.13.0"
+    "node": ">=8.4.0"
   },
   "main": "src/faye_node",
   "browser": "src/faye_browser",
